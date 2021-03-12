@@ -7,9 +7,9 @@ ENV STEAMAPPID 896660
 ENV VALHEIM_SERVER_DIR "/home/steam/valheim-dedicated"
 # Where world data is stored
 ENV VALHEIM_DATA_DIR "/home/steam/valheim-data"
-ENV VALHEIM_SERVER_NAME=""
-ENV VALHEIM_WORLD_NAME=""
-ENV VALHEIM_PASSWORD=""
+ENV VALHEIM_SERVER_NAME ""
+ENV VALHEIM_WORLD_NAME ""
+ENV VALHEIM_PASSWORD ""
 
 # Ports needed by Valheim server
 EXPOSE 2456/udp
