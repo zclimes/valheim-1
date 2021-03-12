@@ -14,10 +14,29 @@ spec:
     protocol: UDP
     type: LoadBalancer
 ---
+# Manually create a secret object in the cluster containing the world password
+#
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: valheim-secrets
+# data:
+#   password: <base64 encoded password>
+# immutable: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: valheim-config
+data:
+  valheim_server_name: "Dedicated"
+  valheim_world_name: "Carapachay"
+
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: web
+  name: valheim
 spec:
   selector:
     matchLabels:
@@ -32,6 +51,22 @@ spec:
       containers:
       - name: valheim
         image: guilledipa/valheim:latest
+        env:
+          - name: VALHEIM_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: valheim-secrets
+                key: password
+          - name: VALHEIM_SERVER_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: valheim-config
+                key: valheim_server_name
+          - name: VALHEIM_WORLD_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: valheim-config
+                key: valheim_world_name
         lifecycle:
           # Currently Valheim only supports SIGINT for graceful termination.
           # https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
