@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: valheim
+  labels:
+    app: valheim
+spec:
+  selector:
+    app: valheim
+  ports:
+  - name: udp-app
+    port: 2456
+    protocol: UDP
+    type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: valheim
+  serviceName: "valheim"
+  template:
+    metadata:
+      labels:
+        app: valheim
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: valheim
+        image: guilledipa/valheim:latest
+        lifecycle:
+          # Currently Valheim only supports SIGINT for graceful termination.
+          # https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
+          preStop:
+            exec:
+              command: ["/bin/sh","-c","while killall -2 valheim; do sleep 1; done"]
+        resources:
+          limits:
+            cpu: "8"
+            memory: "16Gi"
+          requests:
+            cpu: "4"
+            memory: "8Gi"
+        ports:
+        - containerPort: 2456
+          name: udp-app
+        volumeMounts:
+        - name: world-data
+          mountPath: /home/steam/valheim-data
+  volumeClaimTemplates:
+  - metadata:
+      name: world-data
+    spec:
+      accessModes: 
+        - "ReadWriteOnce"
+      storageClassName: ssd
+      resources:
+        requests:
+          storage: 10Gi
