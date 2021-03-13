@@ -102,7 +102,7 @@ spec:
     spec:
       accessModes: 
         - "ReadWriteOnce"
-      storageClassName: ssd
+      storageClassName: premium-rwo
       resources:
         requests:
           storage: 5Gi
