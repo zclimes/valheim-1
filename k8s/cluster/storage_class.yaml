@@ -4,6 +4,6 @@ kind: StorageClass
 metadata:
   name: ssd
 reclaimPolicy: Retain
-provisioner: kubernetes.io/gce-pd
+provisioner: pd.csi.storage.gke.io
 parameters:
   type: pd-ssd
