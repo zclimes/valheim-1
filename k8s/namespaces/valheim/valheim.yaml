@@ -1,15 +1,8 @@
-#TODO: Refactor for Anthos Config Management.
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: valheim
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: valheim
-  namespace: valheim
   labels:
     app: valheim
 spec:
@@ -27,7 +20,6 @@ spec:
 # kind: Secret
 # metadata:
 #   name: valheim-secrets
-#   namespace: valheim
 # data:
 #   password: <base64 encoded password>
 # immutable: true
@@ -36,7 +28,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: valheim-config
-  namespace: valheim
 data:
   valheim_server_name: "Dedicated"
   valheim_world_name: "Carapachay"
@@ -45,7 +36,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: valheim
-  namespace: valheim
 spec:
   selector:
     matchLabels:
