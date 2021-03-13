@@ -12,7 +12,7 @@ spec:
   - name: udp-app
     port: 2456
     protocol: UDP
-    type: LoadBalancer
+  type: LoadBalancer
 ---
 # Manually create a secret object in the cluster containing the world password
 #
