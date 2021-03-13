@@ -16,14 +16,18 @@ EXPOSE 2456/udp
 EXPOSE 2457/udp
 EXPOSE 2458/udp
 
+RUN mkdir ${VALHEIM_SERVER_DIR} && ${VALHEIM_DATA_DIR}
+
 # Install the Valheim server
 RUN ./steamcmd.sh +login anonymous \
         +force_install_dir ${VALHEIM_SERVER_DIR} \
         +app_update ${STEAMAPPID} \
         validate +exit
 
-USER 1000:1000
+# Store data outside of the container
+VOLUME [ ${VALHEIM_SERVER_DIR}, ${VALHEIM_DATA_DIR} ]
 
+USER steam:steam
 WORKDIR $VALHEIM_SERVER_DIR
 # start the server main script
 ENTRYPOINT [ "./valheim_server.x86_64", "Dedicated", "-port", "2456" ]
