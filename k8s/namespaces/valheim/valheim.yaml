@@ -83,8 +83,6 @@ spec:
         - containerPort: 2456
           name: udp-app
         volumeMounts:
-        - name: game-data
-          mountPath: /home/steam/valheim-dedicated
         - name: world-data
           mountPath: /home/steam/valheim-data
   volumeClaimTemplates:
@@ -97,12 +95,3 @@ spec:
       resources:
         requests:
           storage: 10Gi
-  - metadata:
-      name: game-data
-    spec:
-      accessModes: 
-        - "ReadWriteOnce"
-      storageClassName: premium-rwo
-      resources:
-        requests:
-          storage: 5Gi
