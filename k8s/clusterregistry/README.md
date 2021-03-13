@@ -1,6 +1,8 @@
 # Anthos Configuration Management Directory
 
-This is the clusterregistry directory for Anthos 
-Configuration Management.
+[documentation](https://cloud.google.com/anthos-config-management/docs/repo)
 
-See [our documentation](https://cloud.google.com/anthos-config-management/docs/repo) for how to use each subdirectory.
+The `clusterregistry/` directory is optional, and contains configs for 
+`ClusterSelectors`. `ClusterSelectors` limit which clusters a config applies to,
+and are referenced in configs found in the `cluster/` and `namespaces/`
+directories.

@@ -1,6 +1,6 @@
 # Anthos Configuration Management Directory
 
-This is the repo directory for Anthos Configuration Management.
+[documentation](https://cloud.google.com/anthos-config-management/docs/repo)
 
-See [our documentation](https://cloud.google.com/anthos-config-management/docs/repo)
-for how to use each subdirectory.
+The `system/` directory contains configs for the Operator. See Installing Config
+Sync for more information on configuring Config Sync.
