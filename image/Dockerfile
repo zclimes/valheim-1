@@ -16,7 +16,7 @@ EXPOSE 2456/udp
 EXPOSE 2457/udp
 EXPOSE 2458/udp
 
-RUN mkdir ${VALHEIM_SERVER_DIR} && ${VALHEIM_DATA_DIR}
+RUN mkdir ${VALHEIM_SERVER_DIR} && mkdir ${VALHEIM_DATA_DIR}
 
 # Install the Valheim server
 RUN ./steamcmd.sh +login anonymous \
