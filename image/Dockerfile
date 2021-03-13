@@ -30,5 +30,5 @@ VOLUME [ ${VALHEIM_SERVER_DIR}, ${VALHEIM_DATA_DIR} ]
 USER steam:steam
 WORKDIR $VALHEIM_SERVER_DIR
 # start the server main script
-ENTRYPOINT [ "./valheim_server.x86_64", "Dedicated", "-port", "2456" ]
-CMD [ "" ]
+ENTRYPOINT [ "./valheim_server.x86_64", "-name", "Dedicated", "-port", "2456" ]
+CMD [ "-world", "${VALHEIM_WORLD_NAME}", "-password", "${VALHEIM_PASSWORD}", "-savedir", "${VALHEIM_SERVER_DIR}", "-public", "1" ]

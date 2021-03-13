@@ -21,3 +21,9 @@ spec:
     secretTupe: none
     policyDir: /k8s
 ```
+
+Assuming a default service account is being used for the cluster:
+
+```
+kubectl -n config-management-system annotate serviceaccount importer iam.gke.io/gcp-service-account=${PROJECT_ID}-compute@developer.gserviceaccount.com
+```
