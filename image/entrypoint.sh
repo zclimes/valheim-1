@@ -1,7 +1,5 @@
-#!/bin/bash -eu
+#!/bin/bash -e
 
-export templdpath=$LD_LIBRARY_PATH
-export templdpath=$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$VALHEIM_SERVER_DIR/linux64:$LD_LIBRARY_PATH
 export SteamAppId=892970
 
@@ -13,7 +11,7 @@ echo "Valheim world name is: ${VALHEIM_WORLD_NAME}"
     -batchmode \
     -name $VALHEIM_SERVER_NAME \
     -port 2456 \
-    -world $VALHEIM_WORLD_NAME
-    -password $VALHEIM_PASSWORD 
-    -savedir $VALHEIM_DATA_DIR
+    -world $VALHEIM_WORLD_NAME \
+    -password $VALHEIM_PASSWORD \
+    -savedir $VALHEIM_DATA_DIR \
     -public 1
