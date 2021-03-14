@@ -9,8 +9,17 @@ spec:
   selector:
     app: valheim
   ports:
-  - name: udp-app
+  - name: udp-app1
     port: 2456
+    targetPort: 2456
+    protocol: UDP
+  - name: udp-app2
+    port: 2457
+    targetPort: 2457
+    protocol: UDP
+  - name: udp-app3
+    port: 2458
+    targetPort: 2458
     protocol: UDP
   type: LoadBalancer
 ---
@@ -81,7 +90,14 @@ spec:
             memory: "8Gi"
         ports:
         - containerPort: 2456
-          name: udp-app
+          protocol: UDP
+          name: udp-app1
+        - containerPort: 2457
+          protocol: UDP
+          name: udp-app2
+        - containerPort: 24578
+          protocol: UDP
+          name: udp-app3
         volumeMounts:
         - name: world-data
           mountPath: /home/steam/valheim-data

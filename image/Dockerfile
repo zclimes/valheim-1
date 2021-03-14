@@ -16,8 +16,8 @@ EXPOSE 2456/udp
 EXPOSE 2457/udp
 EXPOSE 2458/udp
 
-RUN mkdir ${VALHEIM_SERVER_DIR} && chown steam:steam ${VALHEIM_SERVER_DIR}
-RUN mkdir ${VALHEIM_DATA_DIR} && chown steam:steam ${VALHEIM_DATA_DIR}
+RUN mkdir ${VALHEIM_SERVER_DIR} && chown -R steam:steam ${VALHEIM_SERVER_DIR}
+RUN mkdir ${VALHEIM_DATA_DIR} && chown -R steam:steam ${VALHEIM_DATA_DIR}
 
 # Install the Valheim server
 RUN ./steamcmd.sh +login anonymous \
@@ -25,11 +25,9 @@ RUN ./steamcmd.sh +login anonymous \
         +app_update ${STEAMAPPID} \
         validate +exit
 
+USER steam:steam
 # Store data outside of the container
 VOLUME ${VALHEIM_DATA_DIR}
-
-USER steam:steam
-WORKDIR $VALHEIM_SERVER_DIR
+COPY entrypoint.sh /
 # start the server main script
-ENTRYPOINT [ "./valheim_server.x86_64", "-name", "Dedicated", "-port", "2456" ]
-CMD [ "-world", $VALHEIM_WORLD_NAME, "-password", $VALHEIM_PASSWORD, "-savedir", $VALHEIM_DATA_DIR, "-public", "1" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
