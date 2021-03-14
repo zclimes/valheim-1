@@ -17,6 +17,7 @@ EXPOSE 2457/udp
 EXPOSE 2458/udp
 
 COPY --chown=steam:steam entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 RUN mkdir ${VALHEIM_SERVER_DIR} && chown -R steam:steam ${VALHEIM_SERVER_DIR}
 RUN mkdir ${VALHEIM_DATA_DIR} && chown -R steam:steam ${VALHEIM_DATA_DIR}
 
