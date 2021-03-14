@@ -75,12 +75,6 @@ spec:
               configMapKeyRef:
                 name: valheim-config
                 key: valheim_world_name
-        lifecycle:
-          # Currently Valheim only supports SIGINT for graceful termination.
-          # https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
-          preStop:
-            exec:
-              command: ["/bin/sh","-c","while killall -2 valheim; do sleep 1; done"]
         resources:
           limits:
             cpu: "8"

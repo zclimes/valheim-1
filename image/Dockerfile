@@ -16,10 +16,9 @@ EXPOSE 2456/udp
 EXPOSE 2457/udp
 EXPOSE 2458/udp
 
-COPY entrypoint.sh /
+COPY --chown=steam:steam entrypoint.sh /
 RUN mkdir ${VALHEIM_SERVER_DIR} && chown -R steam:steam ${VALHEIM_SERVER_DIR}
 RUN mkdir ${VALHEIM_DATA_DIR} && chown -R steam:steam ${VALHEIM_DATA_DIR}
-RUN chown steam:steam /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Install the Valheim server
 RUN ./steamcmd.sh +login anonymous \
@@ -33,3 +32,7 @@ VOLUME ${VALHEIM_DATA_DIR}
 
 # start the server main script
 ENTRYPOINT [ "/entrypoint.sh" ]
+
+# Currently Valheim only supports SIGINT for graceful termination.
+# https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
+STOPSIGNAL SIGINT
