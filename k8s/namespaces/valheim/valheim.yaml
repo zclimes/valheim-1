@@ -83,6 +83,11 @@ spec:
           requests:
             cpu: "4"
             memory: "8Gi"
+        securityContext:
+          # 1000 - steam
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
         ports:
         - containerPort: 2456
           protocol: UDP
