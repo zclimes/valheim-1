@@ -57,6 +57,22 @@ spec:
         app: valheim
     spec:
       terminationGracePeriodSeconds: 10
+      initContainers:
+      - name: fix-perms
+        image: alpine:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          chown -R steam:steam -u -p /home/steam/valheim-data
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: false
+          runAsUser: 0
+          runAsGroup: 0
+        volumeMounts:
+        - name: world-data
+          mountPath: /home/steam/valheim-data
       containers:
       - name: valheim
         image: guilledipa/valheim:latest
