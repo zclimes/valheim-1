@@ -64,7 +64,7 @@ spec:
         - /bin/sh
         - -c
         - |
-          chown -R steam:steam -u -p /home/steam/valheim-data
+          chown -R steam:steam /home/steam/valheim-data
         securityContext:
           readOnlyRootFilesystem: true
           runAsNonRoot: false
