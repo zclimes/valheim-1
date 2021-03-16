@@ -1,5 +1,9 @@
 # Valheim dedicated server
 
+The source repository can be found in https://github.com/guilledipa/valheim
+
+A CI pipeline is building https://hub.docker.com/r/guilledipa/valheim
+
 ## `/image`
 
 This directory contains the `Dockerfile` to build a container for Valheim
