@@ -1,15 +1,42 @@
-# Valheim
+# Valheim dedicated server
 
-Valheim dedicated server
+## `/image`
+
+This directory contains the `Dockerfile` to build a container for Valheim
+dedicated server.
+
+To build this image:
+
+1. Install docker runtime
+1. Build image
+
+    ```shell 
+    git clone https://github.com/guilledipa/valheim
+    cd valheim/image
+    docker build --tag guilledipa/valheim .
+    ```
+
+1. Run image
+
+  ```shell
+  docker run -e VALHEIM_SERVER_NAME -e VALHEIM_WORLD_NAME= -e VALHEIM_PASSWORD guilledipa/valheim
+  ```
+
+## `/k8s`
+
+This is an opinionated `StatefulSet` configuration to run the public image in
+https://hub.docker.com/r/guilledipa/valheim
 
 Assumptions:
 
-- GKE
-  - ACM
+- GKE (although can easliy be adapted to other K8s providers)
+  - Anthos Config Management – Config Sync
 
-Here a snippet for your `ConfigManagement` config:
+After installing Config Sync, create a `ConfigManagement` config.
 
-```
+Here a snippet:
+
+```yaml
 apiVErsion: configmanagement.gke.io/v1
 kind: ConfigManagement
 metadata: config-management
@@ -24,6 +51,10 @@ spec:
 
 Assuming a default service account is being used for the cluster:
 
-```
+```shell
 kubectl -n config-management-system annotate serviceaccount importer iam.gke.io/gcp-service-account=${PROJECT_ID}-compute@developer.gserviceaccount.com
 ```
+
+## `/DM`
+
+**TODO(guilledipa):** Add GCP Deployment manager configs
