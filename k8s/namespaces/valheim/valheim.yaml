@@ -94,11 +94,11 @@ spec:
                 key: valheim_world_name
         resources:
           limits:
-            cpu: "8"
-            memory: "16Gi"
-          requests:
             cpu: "4"
             memory: "8Gi"
+          requests:
+            cpu: "2"
+            memory: "4Gi"
         securityContext:
           # 1000 - steam
           runAsUser: 1000
